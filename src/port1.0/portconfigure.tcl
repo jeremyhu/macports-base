@@ -720,6 +720,12 @@ proc portconfigure::add_automatic_compiler_dependencies {} {
         depends_skip_archcheck-delete $compiler_port
         depends_skip_archcheck-append $compiler_port
     }
+
+    # When using a port-provided compiler, ensure that we have the latest available cctools
+    depends_build-delete port:cctools
+    depends_build-append port:cctools
+    depends_skip_archcheck-delete cctools
+    depends_skip_archcheck-append cctools
 }
 # Register the above procedure as a callback after Portfile evaluation
 port::register_callback portconfigure::add_automatic_compiler_dependencies
